@@ -1,57 +1,53 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Resource } from './../entities/resource.entity';
 
 @Injectable()
 export class ResourcesService {
-  private counterId = 1;
+  @InjectRepository(Resource)
+  private readonly resourceRepository: Repository<Resource>;
 
-  private resources: Resource[] = [
-    {
-      id: 1,
-      type: 'VIDEO',
-      name: 'video 1',
-      description: 'Great video',
-      tags: ['soccer', 'younger', 'eeuu'],
-      size: '10 Mb',
-      path: ''
-    },
-  ];
-
-  findAll() {
-    return this.resources;
+  async findAll(): Promise<Resource[]> {
+    return await this.resourceRepository.find();
   }
 
-  findOne(id: number) {
-    return this.resources.find((item) => item.id === id);
+  async findOne(id: number): Promise<Resource> {
+    return await this.resourceRepository.findOne({ where: { id: id } });
   }
 
-  create(payload: any) {
-    this.counterId = this.counterId + 1;
-    const newResource = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.resources.push(newResource);
-    return newResource;
+  async create(payload: any): Promise<Resource> {
+    const resource: Resource = new Resource();
+
+    resource.type = payload.type;
+    resource.name = payload.name;
+    resource.description = payload.description;
+    resource.tags = payload.tags;
+    resource.size = payload.size;
+    resource.path = payload.path;
+
+    return await this.resourceRepository.save(resource);
   }
 
-  update(id: number, payload: any) {
+  async update(id: number, payload: any) {
     const resource = this.findOne(id);
     if (resource) {
-      const index = this.resources.findIndex((obj) => obj.id === id);
-      const resourceUpdated = {
-        ...resource,
-        ...payload,
-      };
-      this.resources[index] = resourceUpdated;
-      return resourceUpdated;
+      const responseUpdated = await this.resourceRepository.update(id, payload);
+      if (responseUpdated && responseUpdated.affected === 1) {
+        return true;
+      }
     }
-    return null;
+    return false;
   }
 
-  delete(id: number) {
-    const index = this.resources.findIndex((obj) => obj.id === id);
-    this.resources.splice(index, 1);
-    return id;
+  async delete(id: number) {
+    const resource = this.findOne(id);
+    if (resource) {
+      const responseUpdated = await this.resourceRepository.delete(id);
+      if (responseUpdated && responseUpdated.affected === 1 ) {
+        return true;
+      } 
+    }
+    return false;
   }
 }
