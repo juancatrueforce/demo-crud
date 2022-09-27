@@ -7,31 +7,34 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
+import {SourcesService} from './../services/sources.service';
 
 @Controller('sources')
 export class SourcesController {
+  constructor(private sourceService: SourcesService) {}
+
   @Get()
   findAll() {
-    return 'All sources';
+    return this.sourceService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `get source: ${id}`;
+    return this.sourceService.findOne(+id);
   }
 
   @Post()
   create(@Body() payload: any) {
-    return payload;
+    return this.sourceService.create(payload);
   }
 
   @Put(':id')
-  update(@Param('id') id: string) {
-    return `update source: ${id}`;
+  update(@Param('id') id: string, @Body() payload: any) {
+    return this.sourceService.update(+id, payload);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return `delete source: ${id}`;
+    return this.sourceService.delete(+id);
   }
 }

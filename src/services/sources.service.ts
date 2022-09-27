@@ -22,7 +22,6 @@ export class SourcesService {
   }
 
   findOne(id: number) {
-    console.log(this.sources);
     return this.sources.find((item) => item.id === id);
   }
 

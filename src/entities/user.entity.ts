@@ -1,4 +1,4 @@
-export class Source {
+export class User {
   id: number;
   email: string;
   password: string;
