@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  HttpCode
 } from '@nestjs/common';
 import {ResourcesService} from '../services/resources.service';
 import { ResourceDto } from './../dtos/resource.dto';
@@ -21,21 +22,23 @@ export class ResourcesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.resourceService.findOne(+id);
+    return this.resourceService.findOne(id);
   }
 
   @Post()
+  @HttpCode(201)
   create(@Body() payload: ResourceDto) {
     return this.resourceService.create(payload);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() payload: ResourceDto) {
-    return this.resourceService.update(+id, payload);
+    return this.resourceService.update(id, payload);
   }
 
   @Delete(':id')
+  @HttpCode(204)
   delete(@Param('id') id: string) {
-    return this.resourceService.delete(+id);
+    return this.resourceService.delete(id);
   }
 }

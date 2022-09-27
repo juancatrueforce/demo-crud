@@ -12,8 +12,8 @@ export class ResourcesService {
     return await this.resourceRepository.find();
   }
 
-  async findOne(id: number): Promise<Resource> {
-    return await this.resourceRepository.findOne({ where: { id: id } });
+  async findOne(id: string): Promise<Resource> {
+    return await this.resourceRepository.findOne({ where: { id } });
   }
 
   async create(payload: any): Promise<Resource> {
@@ -29,7 +29,7 @@ export class ResourcesService {
     return await this.resourceRepository.save(resource);
   }
 
-  async update(id: number, payload: any) {
+  async update(id: string, payload: any) {
     const resource = this.findOne(id);
     if (resource) {
       const responseUpdated = await this.resourceRepository.update(id, payload);
@@ -40,7 +40,7 @@ export class ResourcesService {
     return false;
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     const resource = this.findOne(id);
     if (resource) {
       const responseUpdated = await this.resourceRepository.delete(id);

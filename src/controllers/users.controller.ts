@@ -6,7 +6,7 @@ import {
   Post,
   Put,
   Delete,
-  Version
+  HttpCode
 } from '@nestjs/common';
 import {UsersService} from './../services/users.service';
 import { UserDto } from './../dtos/user.dto';
@@ -22,21 +22,23 @@ export class UsersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   @Post()
+  @HttpCode(201)
   create(@Body() payload: UserDto) {
     return this.userService.create(payload);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() payload: UserDto) {
-    return this.userService.update(+id, payload);
+    return this.userService.update(id, payload);
   }
 
   @Delete(':id')
+  @HttpCode(204)
   delete(@Param('id') id: string) {
-    return this.userService.delete(+id);
+    return this.userService.delete(id);
   }
 }
