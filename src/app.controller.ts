@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello(): object {
+    return { message: "Welcome to the Spike's Juanca", version: 'v0.0.1' };
   }
 }
