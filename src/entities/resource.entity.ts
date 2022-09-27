@@ -1,4 +1,4 @@
-export class Source {
+export class Resource {
   id: number;
   type: string;
   name: string;
