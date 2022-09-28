@@ -31,6 +31,7 @@ describe('ResourcesController', () => {
           tags: ['soccer', 'futbol', 'eeuu'],
           size: '12 mb',
           path: '',
+          user: null
         },
       ];
       jest
@@ -50,6 +51,7 @@ describe('ResourcesController', () => {
         tags: ['soccer', 'futbol', 'eeuu'],
         size: '12 mb',
         path: '',
+        user: null
       }
       jest
         .spyOn(resourceService, 'findOne')
@@ -68,6 +70,7 @@ describe('ResourcesController', () => {
         tags: ['soccer', 'futbol', 'eeuu'],
         size: '12 mb',
         path: '',
+        user: null
       }
       jest.spyOn(resourceService, 'create').mockImplementation(async () => resource);
       expect(await resourceController.create(resource)).toBe(resource);
@@ -84,6 +87,7 @@ describe('ResourcesController', () => {
         tags: ['soccer', 'futbol', 'eeuu'],
         size: '12 mb',
         path: '',
+        user: null
       }
       jest.spyOn(resourceService, 'update').mockImplementation(async () => resource);
       expect(await resourceController.update(resource.id, resource)).toBe(resource);
@@ -100,6 +104,7 @@ describe('ResourcesController', () => {
         tags: ['soccer', 'futbol', 'eeuu'],
         size: '12 mb',
         path: '',
+        user: null
       }
       jest.spyOn(resourceService, 'delete').mockImplementation(async () => resource);
       expect(await resourceController.delete(resource.id)).toBe(resource);

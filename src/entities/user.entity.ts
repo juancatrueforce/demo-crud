@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Resource } from './resource.entity';
 
 @Entity()
 export class User {
@@ -16,4 +17,7 @@ export class User {
 
   @Column({ type: 'varchar', length: 500 })
   lastname: string;
+
+  @OneToMany(() => Resource, (resource) => resource.user)
+  resources: Resource[]
 }

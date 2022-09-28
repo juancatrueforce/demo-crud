@@ -29,6 +29,7 @@ describe('UsersController', () => {
           password: 'demo123',
           firstname: 'Ramiro',
           lastname: 'Rios',
+          resources: []
         },
       ];
       jest
@@ -46,6 +47,7 @@ describe('UsersController', () => {
         password: 'demo123',
         firstname: 'Ramiro',
         lastname: 'Rios',
+        resources: []
       };
       jest.spyOn(userService, 'findOne').mockImplementation(async () => user);
       expect(await userController.findOne(user.id)).toBe(user);
@@ -60,6 +62,7 @@ describe('UsersController', () => {
         password: 'demo123',
         firstname: 'Ramiro',
         lastname: 'Rios',
+        resources: []
       };
       jest.spyOn(userService, 'create').mockImplementation(async () => user);
       expect(await userController.create(user)).toBe(user);
@@ -74,6 +77,7 @@ describe('UsersController', () => {
         password: 'demo123',
         firstname: 'Ramiro',
         lastname: 'Rios',
+        resources: []
       };
       jest.spyOn(userService, 'update').mockImplementation(async () => user);
       expect(await userController.update(user.id, user)).toBe(user);
@@ -88,6 +92,7 @@ describe('UsersController', () => {
         password: 'demo123',
         firstname: 'Ramiro',
         lastname: 'Rios',
+        resources: []
       };
       jest.spyOn(userService, 'delete').mockImplementation(async () => user);
       expect(await userController.delete(user.id)).toBe(user);
