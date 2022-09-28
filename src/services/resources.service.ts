@@ -30,24 +30,22 @@ export class ResourcesService {
   }
 
   async update(id: string, payload: any) {
-    const resource = this.findOne(id);
+    const resource = await this.findOne(id);
     if (resource) {
       const responseUpdated = await this.resourceRepository.update(id, payload);
       if (responseUpdated && responseUpdated.affected === 1) {
-        return true;
+        return await this.findOne(id);
       }
     }
     return false;
   }
 
   async delete(id: string) {
-    const resource = this.findOne(id);
+    const resource = await this.findOne(id);
     if (resource) {
       const responseUpdated = await this.resourceRepository.delete(id);
-      if (responseUpdated && responseUpdated.affected === 1 ) {
-        return true;
-      } 
+      return resource;
     }
-    return false;
+    return null;
   }
 }

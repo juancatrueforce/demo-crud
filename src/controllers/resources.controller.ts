@@ -2,7 +2,7 @@ import {
   Controller,
   Get,
   Post,
-  Put,
+  Patch,
   Delete,
   Body,
   Param,
@@ -31,7 +31,7 @@ export class ResourcesController {
     return this.resourceService.create(payload);
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: string, @Body() payload: ResourceDto) {
     return this.resourceService.update(id, payload);
   }

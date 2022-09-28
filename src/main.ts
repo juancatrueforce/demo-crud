@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { VersioningType } from '@nestjs/common'
 
 async function bootstrap() {
-  console.log(process.env);
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableVersioning({

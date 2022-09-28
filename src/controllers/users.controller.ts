@@ -4,7 +4,7 @@ import {
   Param,
   Get,
   Post,
-  Put,
+  Patch,
   Delete,
   HttpCode
 } from '@nestjs/common';
@@ -31,7 +31,7 @@ export class UsersController {
     return this.userService.create(payload);
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: string, @Body() payload: UserDto) {
     return this.userService.update(id, payload);
   }

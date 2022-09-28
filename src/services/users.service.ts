@@ -29,20 +29,20 @@ export class UsersService {
   }
 
   async update(id: string, payload: UserDto) {
-    const user = this.findOne(id);
+    let user = await this.findOne(id);
     if (user) {
       const responseUpdated = await this.userRepository.update(id, payload);
-      return responseUpdated && responseUpdated.affected === 1;
+      return await this.findOne(id);
     }
-    return false;
+    return null;
   }
 
   async delete(id: string) {
-    const user = this.findOne(id);
+    const user = await this.findOne(id);
     if (user) {
       const responseUpdated = await this.userRepository.delete(id);
-      return responseUpdated && responseUpdated.affected === 1;
+      return user;
     }
-    return false;
+    return null;
   }
 }
